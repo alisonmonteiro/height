@@ -1,0 +1,25 @@
+{
+  "name": "height",
+  "version": "0.0.1",
+  "description": "Apply the same height in your columns",
+  "license": "MIT",
+  "repository": "alisonmonteiro/height",
+  "author": {
+    "name": "Alison",
+    "email": "alisonmonteiro.10@gmail.com",
+    "url": "alisonmonteiro.com.br"
+  },
+  "files": [
+    "index.js"
+  ],
+  "keywords": [
+    "height",
+    "elements",
+    "js",
+    "html",
+    "same",
+    "columns",
+    "alison",
+    "monteiro"
+  ]
+}
