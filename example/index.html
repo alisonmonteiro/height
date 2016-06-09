@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <title>Example</title>
+
+  <style>
+    html,
+    body {
+      font: 12px Arial, sans-serif;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    ul .item {
+      height: auto;
+      border: 2px solid #B39F9F;
+      width: calc(100% / 3 - 6px);
+      float: left;
+      padding: 10px;
+      box-sizing: border-box;
+      margin: 3px;
+    }
+  </style>
+</head>
+<body>
+
+  <ul>
+    <li class="item">test</li>
+    <li class="item">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores, laboriosam velit est veritatis voluptas quo rem illo, aut, error atque corporis officia accusamus natus. Sint rerum excepturi, perferendis animi sit.</li>
+    <li class="item">test</li>
+    <li class="item">Cinventore et corrupti, voluptatibus atque eveniet! Dicta natus nisi quia, earum!</li>
+    <li class="item">test</li>
+    <li class="item">test</li>
+    <li class="item">test</li>
+    <li class="item">test</li>
+    <li class="item">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem eos eius quod aspernatur deserunt lorem ipsum dolor.</li>
+  </ul>
+
+  <script src="../index.js"></script>
+  <script>
+    var options = {
+      listElem: 'ul .item',
+      columns: 3
+    };
+
+    Height(options);
+  </script>
+</body>
+</html>
