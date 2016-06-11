@@ -1,7 +1,7 @@
 {
-  "name": "height",
+  "name": "height-js",
   "version": "0.0.1",
-  "description": "Apply the same height in your columns",
+  "description": "Apply the same height in your columns.",
   "license": "MIT",
   "repository": "alisonmonteiro/height",
   "author": {

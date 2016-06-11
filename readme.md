@@ -5,7 +5,7 @@
 ## Install
 
 ```
-$ npm install --save height
+$ npm install --save height-js
 ```
 
 
