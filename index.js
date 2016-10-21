@@ -1,62 +1,77 @@
-var Height = function(opts) {
+(function (root, factory) {
   'use strict';
 
-  opts = opts || {};
-
-  var checkOpts = function() {
-    if (typeof opts.columns !== 'number') {
-      throw new TypeError('opts.columns must be a number.')
-    }
-
-    if (typeof opts.listElem !== 'string') {
-      throw new TypeError('opts.listElem must be a string.')
-    }
+  if (typeof module === 'object' && typeof module.exports === 'object') {
+    // CommonJS-like
+    exports = module.exports = factory();
+  } else if (typeof define === 'function' && define.amd) {
+    // AMD
+    define('Height', factory);
+  } else {
+    // Browser globals (root is window)
+    root.Height = factory(root, document);
   }
+})(typeof window === 'undefined' ? this : window, function (window, document) {
+  'use strict';
 
-  var init = function() {
-    var elements = document.querySelectorAll(opts.listElem)
-    var maxHeight = 0;
-    var rowElements = [];
+  function Height(opts) {
+    opts = opts || {};
 
-    elements = Array.prototype.slice.call(elements)
-
-    if (elements.length > 0) {
-      for (var index = 0; index < elements.length; index++) {
-        var toPosition = (index + opts.columns - 1);
-
-        toPosition = (toPosition > elements.length)
-          ? (elements.length - 1)
-          : toPosition;
-
-        rowElements = elements.slice(index, (toPosition + 1));
-
-        maxHeight = getMaxHeight(rowElements);
-        setElementsHeight(rowElements, maxHeight);
-
-        index = toPosition;
+    function checkOpts() {
+      if (typeof opts.columns !== 'number' || typeof opts.listElem !== 'string') {
+        throw new TypeError('`opts.columns` must be a `number` AND `opts.listElem` must be a `string`');
       }
     }
-  }
 
-  var getMaxHeight = function(elements) {
-    var style, heights = [];
+    function init() {
+      var elements = document.querySelectorAll(opts.listElem);
+      var maxHeight = 0;
+      var rowElements = [];
 
-    heights = elements.map(function(item) {
-      style = window.getComputedStyle(item);
+      elements = Array.prototype.slice.call(elements);
 
-      if (heights.indexOf(parseInt(style.height)) !== 0)
-        return parseInt(style.height);
-    });
+      if (elements.length > 0) {
+        for (var index = 0; index < elements.length; index++) {
+          var toPosition = (index + opts.columns - 1);
 
-    return Math.max.apply(Math, heights);
-  }
+          toPosition = (toPosition > elements.length) ?
+            (elements.length - 1) :
+            toPosition;
 
-  var setElementsHeight = function(elements, maxHeight) {
-    for (var j = 0; j < elements.length; j++) {
-      elements[j].style.height = maxHeight + 'px';
+          rowElements = elements.slice(index, (toPosition + 1));
+
+          maxHeight = getMaxHeight(rowElements);
+          setElementsHeight(rowElements, maxHeight);
+
+          index = toPosition;
+        }
+      }
     }
+
+    function getMaxHeight(elements) {
+      var style;
+      var heights = [];
+
+      heights = elements.map(function (item) {
+        style = window.getComputedStyle(item);
+
+        if (heights.indexOf(parseInt(style.height, 10)) !== 0) {
+          return parseInt(style.height, 10);
+        }
+      });
+
+      return Math.max.apply(Math, heights);
+    }
+
+    function setElementsHeight(elements, maxHeight) {
+      for (var j = 0; j < elements.length; j++) {
+        elements[j].style.height = maxHeight + 'px';
+      }
+    }
+
+    checkOpts();
+    init();
   }
 
-  checkOpts();
-  init();
-};
+  return Height;
+});
