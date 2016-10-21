@@ -1,19 +1,15 @@
-var Height = function(opts) {
+function Height(opts) {
   'use strict';
 
   opts = opts || {};
 
-  var checkOpts = function() {
-    if (typeof opts.columns !== 'number') {
-      throw new TypeError('opts.columns must be a number.')
-    }
-
-    if (typeof opts.listElem !== 'string') {
-      throw new TypeError('opts.listElem must be a string.')
+  function checkOpts() {
+    if (typeof opts.columns !== 'number' || typeof opts.listElem !== 'string') {
+      throw new TypeError('`opts.columns` must be a `number` AND `opts.listElem` must be a `string`')
     }
   }
 
-  var init = function() {
+  function init() {
     var elements = document.querySelectorAll(opts.listElem)
     var maxHeight = 0;
     var rowElements = [];
@@ -38,7 +34,7 @@ var Height = function(opts) {
     }
   }
 
-  var getMaxHeight = function(elements) {
+  function getMaxHeight(elements) {
     var style, heights = [];
 
     heights = elements.map(function(item) {
@@ -51,7 +47,7 @@ var Height = function(opts) {
     return Math.max.apply(Math, heights);
   }
 
-  var setElementsHeight = function(elements, maxHeight) {
+  function setElementsHeight(elements, maxHeight) {
     for (var j = 0; j < elements.length; j++) {
       elements[j].style.height = maxHeight + 'px';
     }
@@ -59,4 +55,4 @@ var Height = function(opts) {
 
   checkOpts();
   init();
-};
+}
