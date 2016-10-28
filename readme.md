@@ -12,9 +12,9 @@ $ npm install --save height-js
 ## Usage
 
 ```javascript
-var options = {
-  listElem: 'ul .item',
-  columns: 3
+const options = {
+  columns: 3,
+  listElem: '.list .item'
 };
 
 Height(options);
@@ -22,7 +22,7 @@ Height(options);
 
 Result:
 
-![Sim](./example/screenshot.png)
+![screenshot](./example/screenshot.png)
 
 
 ## Related
