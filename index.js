@@ -17,59 +17,53 @@
   function Height(opts) {
     opts = opts || {};
 
-    function checkOpts() {
+    function checkOptions() {
       if (typeof opts.columns !== 'number' || typeof opts.listElem !== 'string') {
         throw new TypeError('`opts.columns` must be a `number` AND `opts.listElem` must be a `string`');
       }
     }
 
     function init() {
-      var elements = document.querySelectorAll(opts.listElem);
-      var maxHeight = 0;
-      var rowElements = [];
+      const selector = document.querySelectorAll(opts.listElem);
+      const elements = Array.prototype.slice.call(selector);
+      let maxHeight = 0;
+      let rowElements = [];
 
-      elements = Array.prototype.slice.call(elements);
+      if (elements.length === 0) {
+        throw new Error(`No elements found with by selector \`${opts.listElem}\``);
+      }
 
-      if (elements.length > 0) {
-        for (var index = 0; index < elements.length; index++) {
-          var toPosition = (index + opts.columns - 1);
+      for (let index = 0; index < elements.length; index++) {
+        let toPosition = (index + opts.columns - 1);
 
-          toPosition = (toPosition > elements.length) ?
-            (elements.length - 1) :
-            toPosition;
+        toPosition = (toPosition > elements.length) ?
+          (elements.length - 1) :
+          toPosition;
 
-          rowElements = elements.slice(index, (toPosition + 1));
+        rowElements = elements.slice(index, (toPosition + 1));
 
-          maxHeight = getMaxHeight(rowElements);
-          setElementsHeight(rowElements, maxHeight);
+        maxHeight = getMaxHeight(rowElements);
+        setElementsHeight(rowElements, maxHeight);
 
-          index = toPosition;
-        }
+        index = toPosition;
       }
     }
 
     function getMaxHeight(elements) {
-      var style;
-      var heights = [];
+      const heights = elements.map(item => {
+        const style = window.getComputedStyle(item);
 
-      heights = elements.map(function (item) {
-        style = window.getComputedStyle(item);
-
-        if (heights.indexOf(parseInt(style.height, 10)) !== 0) {
-          return parseInt(style.height, 10);
-        }
+        return parseInt(style.height, 10);
       });
 
       return Math.max.apply(Math, heights);
     }
 
-    function setElementsHeight(elements, maxHeight) {
-      for (var j = 0; j < elements.length; j++) {
-        elements[j].style.height = maxHeight + 'px';
-      }
+    function setElementsHeight(elements, height) {
+      elements.map(element => element.style.height = `${height}px`);
     }
 
-    checkOpts();
+    checkOptions();
     init();
   }
 
