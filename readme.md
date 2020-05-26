@@ -12,6 +12,8 @@ $ npm install --save height-js
 ## Usage
 
 ```javascript
+import Height from 'height-js';
+
 const options = {
   columns: 3,
   listElem: '.list .item'
